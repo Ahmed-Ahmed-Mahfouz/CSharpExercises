@@ -18,11 +18,8 @@ internal class Recipe
 
     public override string ToString()
     {
-        var steps = new List<string>();
-        foreach (var ingredient in _ingredients)
-        {
-            steps.Add($"{ingredient.Name}. {ingredient.PreparationInstructions}");
-        }
+        var steps = _ingredients.Select(ingredient => $"{ingredient.Name}. {ingredient.PreparationInstructions}")
+                                .ToList();
         return string.Join(Environment.NewLine, steps);
     }
 

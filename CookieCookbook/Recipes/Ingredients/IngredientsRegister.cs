@@ -14,11 +14,13 @@ internal class IngredientsRegister : IIngredientsRegister
         new CocoaPowder()
     };
 
-    public Ingredient GetById(int id)
+    public Ingredient GetById(int id) 
     {
-        foreach (var ingredient in All)
-            if (ingredient.Id == id) return ingredient;
+        var allIngredientsWithGivenId = All.Where(ingredient => ingredient.Id == id);
 
-        return null;
+        if (allIngredientsWithGivenId.Count() > 1) 
+            throw new InvalidOperationException($"More than one ingredients have ID equal to {id}.");
+
+        return allIngredientsWithGivenId.FirstOrDefault();
     }
 }
